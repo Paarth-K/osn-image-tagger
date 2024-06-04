@@ -1,9 +1,11 @@
 import Head from "next/head";
 // import Image from "next/image";
-// import { Inter } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 
-// const inter = Inter({ subsets: ["latin"] });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--dm-sans" });
 
+import HomePage from "@/views/HomePage";
+import Script from "next/script";
 export default function Home() {
   return (
     <>
@@ -13,6 +15,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <main className={dmSans.variable}>
+        <HomePage />
+      </main>
     </>
   );
 }

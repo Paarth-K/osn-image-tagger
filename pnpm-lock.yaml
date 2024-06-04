@@ -20,6 +20,9 @@ importers:
       sass:
         specifier: ^1.77.4
         version: 1.77.4
+      use-debounce:
+        specifier: ^10.0.1
+        version: 10.0.1(react@18.3.1)
 
 packages:
 
@@ -241,6 +244,12 @@ packages:
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
+  use-debounce@10.0.1:
+    resolution: {integrity: sha512-0uUXjOfm44e6z4LZ/woZvkM8FwV1wiuoB6xnrrOmeAEjRDDzTLQNRFtYHvqUsJdrz1X37j0rVGIVp144GLHGKg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+
 snapshots:
 
   '@next/env@14.2.3': {}
@@ -421,3 +430,7 @@ snapshots:
       is-number: 7.0.0
 
   tslib@2.6.2: {}
+
+  use-debounce@10.0.1(react@18.3.1):
+    dependencies:
+      react: 18.3.1
