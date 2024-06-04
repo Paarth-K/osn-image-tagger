@@ -70,3 +70,31 @@
 .tags {
   width: 500px;
 }
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.tag {
+  border: 2px solid black;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+.description {
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.subTitle {
+  margin-top: 20px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.aiData {
+  width: 700px;
+}

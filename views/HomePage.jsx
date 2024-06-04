@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useDebouncedCallback } from "use-debounce";
 export default function HomePage() {
   const [imageURL, setImageURL] = useState("");
-  const [tags, setTags] = useState([]);
-  const [tagsStore, setTagsStore] = useState("");
+  const [data, setData] = useState(null);
+  const [dataStore, setDataStore] = useState("");
   const [buttonText, setButtonText] = useState("Tag");
   useEffect(() => {
     console.log("Image URL: ", imageURL);
@@ -22,17 +22,24 @@ export default function HomePage() {
     setButtonText("Tag");
     // console.log(await res.json());
 
-    const data = await res.json();
+    const data = JSON.parse(await res.json());
+    console.log(data);
+
     if (res.status == 200) {
-      setTags(data.tags);
-      setTagsStore(data.tags);
-      console.log(tags);
+      setData(data);
+      setDataStore(data);
+      console.log(data);
       return;
     } else {
       console.error("Failed to tag image");
-      setSummarizedText(`Failed to summarize text. Status Code: ${res.status}`);
+      //   setSummarizedText(`Failed to summarize text. Status Code: ${res.status}`);
+      setData({
+        tags: ["Failed to tag image"],
+        description: "Failed to tag image",
+        objects: ["Failed to tag image"],
+      });
       setTimeout(() => {
-        setSummarizedText("Old Tags: " + summarizedTextStore);
+        setData(dataStore);
       }, 2000);
     }
   }, 300);
@@ -89,8 +96,37 @@ export default function HomePage() {
             ""
           )}
         </div>
-        <div className={styles.tags}>
-          <p>{tags}</p>
+        <div className={styles.aiData}>
+          {data ? (
+            <div>
+              <p className={styles.subTitle}>Tags:</p>
+              <div className={styles.tags}>
+                {data.tags.map((tag) => {
+                  return (
+                    <p key={tag} className={styles.tag}>
+                      {tag}
+                    </p>
+                  );
+                })}
+              </div>
+              <p className={styles.subTitle}>Description:</p>
+              <div className={styles.description}>
+                <p>{data.description}</p>
+              </div>
+              <p className={styles.subTitle}>Objects Identified in Image:</p>
+              <div className={styles.tags}>
+                {data.objects.map((object) => {
+                  return (
+                    <p key={object} className={styles.tag}>
+                      {object}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
