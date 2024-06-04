@@ -99,29 +99,81 @@ export default function HomePage() {
         <div className={styles.aiData}>
           {data ? (
             <div>
-              <p className={styles.subTitle}>Tags:</p>
-              <div className={styles.tags}>
-                {data.tags.map((tag) => {
-                  return (
-                    <p key={tag} className={styles.tag}>
-                      {tag}
-                    </p>
-                  );
-                })}
+              <div>
+                <p className={styles.subTitle}>Title:</p>
+                <div className={styles.description}>
+                  <p>{data.title}</p>
+                </div>
               </div>
-              <p className={styles.subTitle}>Description:</p>
-              <div className={styles.description}>
-                <p>{data.description}</p>
+              <div>
+                <p className={styles.subTitle}>Media Type:</p>
+                <div className={styles.description}>
+                  <p>{data.mediaType}</p>
+                </div>
               </div>
-              <p className={styles.subTitle}>Objects Identified in Image:</p>
-              <div className={styles.tags}>
-                {data.objects.map((object) => {
-                  return (
-                    <p key={object} className={styles.tag}>
-                      {object}
-                    </p>
-                  );
-                })}
+              <div>
+                <p className={styles.subTitle}>Tags:</p>
+                <div className={styles.tags}>
+                  {data.tags.map((tag) => {
+                    return (
+                      <p key={tag} className={styles.tag}>
+                        {tag}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Inferred Synopsis:</p>
+                <div className={styles.description}>
+                  <p>{data.description}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Pure Image Description:</p>
+                <div className={styles.description}>
+                  <p>{data.pureImageDescription}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Inferred Synopsis (Arabic):</p>
+                <div className={styles.description}>
+                  <p>{data.descriptionArabic}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Pure Image Description (Arabic):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.pureImageDescriptionArabic}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Inferred Synopsis (French):</p>
+                <div className={styles.description}>
+                  <p>{data.descriptionFrench}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Pure Image Description (French):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.pureImageDescriptionFrench}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Objects Identified in Image:</p>
+                <div className={styles.tags}>
+                  {data.objects.map((object) => {
+                    return (
+                      <p key={object} className={styles.tag}>
+                        {object}
+                      </p>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ) : (

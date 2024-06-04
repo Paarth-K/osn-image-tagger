@@ -2,7 +2,10 @@ import Head from "next/head";
 // import Image from "next/image";
 import { DM_Sans } from "next/font/google";
 
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--dm-sans" });
+const dmSans = DM_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--dm-sans",
+});
 
 import HomePage from "@/views/HomePage";
 import Script from "next/script";

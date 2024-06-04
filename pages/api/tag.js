@@ -26,7 +26,16 @@ export default async function handler(req, res) {
   Only deduce genre, theme, era, audience, or notable features when it is obvious that they make the movie or TV show depicted in the image stand out.
 
   Return keywords in the format of an array of strings, like this:
-  ["action", "superhero", "modern", "apes", "explosion]
+  ["action", "superhero", "modern", "apes", "explosion"]
+
+  Followed by the title of the media. DO NOT MAKE UP ANY INFORMATION OR ANY INFORMATION ABOUT THE MOVIE/SHOW. IF YOU CAN NOT IDENTIFY SIMPLE STATE "Can Not Determine". An example:
+  "Rick and Morty"
+
+  Followed by the type of the media. DO NOT MAKE UP ANY INFORMATION OR ANY INFORMATION ABOUT THE MOVIE/SHOW. IF YOU CAN NOT IDENTIFY SIMPLE STATE "Can Not Determine". Examples:
+  "TV Show" OR "Movie" OR "Documentary"
+
+  Followed by a text description of purely the image, try and include the title of the movie if it is present in the image. DO NOT MAKE UP ANY INFORMATION OR ANY INFORMATION ABOUT THE MOVIE/SHOW. An example:
+  "Rick and Morty: Old man in Lab-suit, Pre-teen in yellow shirt, blue pants, and white shoes. Standing in front of a green portal."
 
   Followed by a text description of the movie based on what"s in the image, try and include the title of the movie if it is present in the image. DO NOT MAKE UP ANY INFORMATION, opt for quality over quantity. An example:
   "Rick and Morty: The Emmy award-winning half-hour animated hit comedy series on Adult Swim that follows a sociopathic genius scientist who drags his inherently timid grandson on insanely dangerous adventures across the universe."
@@ -34,12 +43,20 @@ export default async function handler(req, res) {
   Followed by objects inside the image in the format of an array of strings, like this:
   ["tree", "river", "chair", "sports-car", "monitor", "people"]
 
+  There will be translations of the descriptions in Arabic and French. Please provide the translations in the same format as the English descriptions.
   
-  Return it in a valid JSON Stringified object form like this:
+  !!RETURN IT IN A VALID JSON STRINGIFIED OBJECT FORM LIKE THIS (DO NOT USE \`\`\`)!!:
   '
   {
     "tags": ["action", "superhero", "modern"],
+    "title": "Rick and Morty",
+    "mediaType: "TV Show",
+    "pureImageDescription": "Rick and Morty: Old man in Lab-suit, Pre-teen in yellow shirt, blue pants, and white shoes. Standing in front of a green portal.",
     "description": "Rick and Morty: The Emmy award-winning half-hour animated hit comedy series on Adult Swim that follows a sociopathic genius scientist who drags his inherently timid grandson on insanely dangerous adventures across the universe.",
+    "pureImageDescriptionArabic": "ريك ومورتي: رجل عجوز يرتدي بدلة مختبر، ومراهق في قميص أصفر وسروال أزرق وحذاء أبيض. يقف أمام بوابة خضراء.",
+    "descriptionArabic": "ريك ومورتي: مسلسل الرسوم المتحركة الكوميدي الشهير الحائز على جائزة إيمي والحائز على نصف ساعة على قناة Adult Swim، والذي تدور أحداثه حول عالم عبقري معتل اجتماعياً يجر حفيده الخجول بطبيعته في مغامرات خطيرة للغاية عبر الكون.",
+    "pureImageDescriptionFrench": "Rick et Morty : Vieil homme en combinaison de laboratoire, pré-adolescent en chemise jaune, pantalon bleu et chaussures blanches. Debout devant un portail vert.",
+    "descriptionFrench": "Rick et Morty : La série comique animée d'une demi-heure, primée aux Emmy Awards et diffusée sur Adult Swim, suit un scientifique de génie sociopathe qui entraîne son petit-fils, par nature timide, dans des aventures follement dangereuses à travers l'univers.",
     "objects": ["tree", "river", "chair", "sports-car", "monitor", "people"],
   }
   '
@@ -49,6 +66,7 @@ export default async function handler(req, res) {
   // `;
   const raw = JSON.stringify({
     model: "gpt-4o",
+    // model: "gpt-4o",
     messages: [
       {
         role: "user",
