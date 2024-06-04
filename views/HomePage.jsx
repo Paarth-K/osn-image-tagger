@@ -124,6 +124,45 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
+                <p className={styles.subTitle}>Objects Identified in Image:</p>
+                <div className={styles.tags}>
+                  {data.objects.map((object) => {
+                    return (
+                      <p key={object} className={styles.tag}>
+                        {object}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Sensitive Items Identified in Image:
+                </p>
+                <div className={styles.tags}>
+                  {data.sensitiveTags.map((object) => {
+                    return (
+                      <p key={object} className={styles.tag}>
+                        {object}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Similar Media Based on Image:</p>
+                <div className={styles.tags}>
+                  {data.similarMedia.map((object) => {
+                    return (
+                      <p key={object} className={styles.tag}>
+                        {object}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className={styles.line}></div>
+              <div>
                 <p className={styles.subTitle}>Inferred Synopsis:</p>
                 <div className={styles.description}>
                   <p>{data.description}</p>
@@ -135,6 +174,19 @@ export default function HomePage() {
                   <p>{data.pureImageDescription}</p>
                 </div>
               </div>
+              <div>
+                <p className={styles.subTitle}>Short Marketing Message:</p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageShort}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Long Marketing Message:</p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageLong}</p>
+                </div>
+              </div>
+              <div className={styles.line}></div>
               <div>
                 <p className={styles.subTitle}>Inferred Synopsis (Arabic):</p>
                 <div className={styles.description}>
@@ -150,6 +202,23 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
+                <p className={styles.subTitle}>
+                  Short Marketing Message (Arabic):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageShortArabic}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Long Marketing Message (Arabic):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageLongArabic}</p>
+                </div>
+              </div>
+              <div className={styles.line}></div>
+              <div>
                 <p className={styles.subTitle}>Inferred Synopsis (French):</p>
                 <div className={styles.description}>
                   <p>{data.descriptionFrench}</p>
@@ -164,15 +233,19 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
-                <p className={styles.subTitle}>Objects Identified in Image:</p>
-                <div className={styles.tags}>
-                  {data.objects.map((object) => {
-                    return (
-                      <p key={object} className={styles.tag}>
-                        {object}
-                      </p>
-                    );
-                  })}
+                <p className={styles.subTitle}>
+                  Short Marketing Message (French):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageShortFrench}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Long Marketing Message (French):
+                </p>
+                <div className={styles.description}>
+                  <p>{data.marketingMessageLongFrench}</p>
                 </div>
               </div>
             </div>
