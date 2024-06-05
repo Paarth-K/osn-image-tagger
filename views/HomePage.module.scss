@@ -9,15 +9,18 @@
 }
 
 .image {
-  width: 500px;
+  width: 33vw;
   height: auto;
+}
+
+.imageCont {
 }
 
 .previewImageSkeleton {
   transition: box-shadow 0.1s, transform 0.1s;
   border: 2px solid black;
   display: flex;
-  height: 400px;
+  height: 750px;
   width: 500px;
 
   align-items: center;
@@ -67,6 +70,19 @@
   gap: 50px;
   width: 95%;
   margin: auto;
+}
+.aiDataCollapsed {
+  height: 0px !important;
+  border: 2px solid #ffffff00 !important;
+  padding: none !important;
+}
+.aiData {
+  height: calc(100vh - 140px);
+  overflow: scroll;
+  border: 2px solid black;
+  padding: 15px;
+  padding-right: 20px;
+  transition: height 0.5s, border 0.2s;
 }
 
 .tags {

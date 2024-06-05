@@ -4,7 +4,9 @@ import CloudinaryUploadWidget from "@/components/ImageUploader/CloudinaryUploadW
 import Image from "next/image";
 import { useDebouncedCallback } from "use-debounce";
 export default function HomePage() {
-  const [imageURL, setImageURL] = useState("");
+  const [imageURL, setImageURL] = useState(
+    "https://res.cloudinary.com/dflzkpttf/image/upload/v1717569838/ge2n3kgmjuudslw72olj"
+  );
   const [data, setData] = useState(null);
   const [dataStore, setDataStore] = useState("");
   const [buttonText, setButtonText] = useState("Tag");
@@ -20,26 +22,50 @@ export default function HomePage() {
       }),
     });
     setButtonText("Tag");
-    // console.log(await res.json());
-
-    const data = JSON.parse(await res.json());
-    console.log(data);
+    // console.log(await res.json())
+    try {
+      var dataRes = await res.json();
+      dataRes = JSON.parse(dataRes);
+    } catch (e) {
+      console.error("Failed to parse JSON response");
+      console.error(e);
+    }
+    console.log(dataRes);
 
     if (res.status == 200) {
-      setData(data);
-      setDataStore(data);
-      console.log(data);
+      setData(dataRes);
+      setDataStore(dataRes);
+      console.log(dataRes);
+      setButtonText("Re-tag");
       return;
     } else {
       console.error("Failed to tag image");
+      console.error("Status Code: ", res.status);
       //   setSummarizedText(`Failed to summarize text. Status Code: ${res.status}`);
       setData({
-        tags: ["Failed to tag image"],
-        description: "Failed to tag image",
-        objects: ["Failed to tag image"],
+        tags: ["Failed to generate tags"],
+        title: "Failed to generate title",
+        mediaType: "Failed to identify media type",
+        objects: ["Failed to identify objects"],
+        sensitiveTags: ["Failed to identify sensitive items"],
+        saudiAgeRating: "Failed to generate age rating",
+        similarMedia: ["Failed to generate similar media"],
+        pureImageDescription: "Failed to generate image description",
+        pureImageDescriptionArabic: "Failed to generate image description",
+        pureImageDescriptionFrench: "Failed to generate image description",
+        description: "Failed to generate plot synopsis",
+        descriptionArabic: "Failed to generate plot synopsis",
+        descriptionFrench: "Failed to generate plot synopsis",
+        marketingMessageShort: "Failed to generate marketing message",
+        marketingMessageShortArabic: "Failed to generate marketing message",
+        marketingMessageShortFrench: "Failed to generate marketing message",
+        marketingMessageLong: "Failed to generate marketing message",
+        marketingMessageLongArabic: "Failed to generate marketing message",
+        marketingMessageLongFrench: "Failed to generate marketing message",
       });
+      setButtonText(`Failed (${res.status})`);
       setTimeout(() => {
-        setData(dataStore);
+        setButtonText("Tag");
       }, 2000);
     }
   }, 300);
@@ -48,18 +74,19 @@ export default function HomePage() {
     <div className={styles.homePage}>
       <p className={styles.title}>OSN Image Tagger</p>
       <div className={styles.mainLayout}>
-        <div>
+        <div className={styles.imageCont}>
           {imageURL ? (
             <>
               <Image
                 width={500}
-                height={400}
+                height={750}
                 className={styles.image}
                 src={`https://wsrv.nl/?url=${imageURL}`}
               ></Image>
               <p
                 onClick={() => {
                   setImageURL("");
+                  setButtonText("Tag");
                 }}
                 className={styles.removeImage}
                 style={{ cursor: "pointer", fontWeight: "500" }}
@@ -96,19 +123,21 @@ export default function HomePage() {
             ""
           )}
         </div>
-        <div className={styles.aiData}>
+        <div
+          className={`${styles.aiData} ${!data ? styles.aiDataCollapsed : ""}`}
+        >
           {data ? (
             <div>
               <div>
                 <p className={styles.subTitle}>Title:</p>
-                <div className={styles.description}>
-                  <p>{data.title}</p>
+                <div className={styles.tags}>
+                  <p className={styles.tag}>{data.title}</p>
                 </div>
               </div>
               <div>
                 <p className={styles.subTitle}>Media Type:</p>
-                <div className={styles.description}>
-                  <p>{data.mediaType}</p>
+                <div className={styles.tags}>
+                  <p className={styles.tag}>{data.mediaType}</p>
                 </div>
               </div>
               <div>
@@ -147,6 +176,14 @@ export default function HomePage() {
                       </p>
                     );
                   })}
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>
+                  Saudi Age Rating for the Media:
+                </p>
+                <div className={styles.tags}>
+                  <p className={styles.tag}>{data.saudiAgeRating}</p>
                 </div>
               </div>
               <div>

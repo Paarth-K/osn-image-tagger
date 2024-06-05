@@ -2,6 +2,8 @@
 
 export default async function handler(req, res) {
   const myHeaders = new Headers();
+  // res.status(205).json({ message: "Hello World" });
+  // return;
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${process.env.OPENAIAPI}`);
   req.body = JSON.parse(req.body);
@@ -35,6 +37,19 @@ export default async function handler(req, res) {
   Followed by sensitive tags if present in the image (or the media), if not simply state ["none"], like this:
   ["18+", "blood", "political", "gore", "horror", "sex", "violence", "weapons", "alcohol", "drugs", "tobacco", "gambling", "profanity", "hate-speech"]
 
+  Followed by the Saudi Age ratings for the Media (based on what you believe is most appropriate for the media), reference below:
+  G: Film is suitable for a general audience of all ages.
+	
+	PG: Parental guidance is advised for film audience below 12 years old.
+	
+	PG12: Film audience below 12 years old must be accompanied by an adult.
+	
+	PG15: Film audience below 15 years old must be accompanied by an adult.
+	
+	R15: Film audience below 15 years old are prohibited to be admitted.
+	
+	R18: Film audience below 18 years old are prohibited to be admitted.
+
   Followed by similar media titles to the one identified based on the mood, synopsis and genre, like this:
   ["Inside Job", "Solar Opposites", "Bojack Horseman", "Gravity Falls"]
 
@@ -58,14 +73,15 @@ export default async function handler(req, res) {
 
   There will be translations of the descriptions in Arabic and French. Please provide the translations in the same format as the English descriptions.
   
-  !!RETURN IT IN A VALID JSON STRINGIFIED OBJECT FORM LIKE THIS (DO NOT USE \`\`\`)!!:
+  RETURN IT IN A VALID JSON STRINGIFIED OBJECT FORM LIKE THIS (DO NOT USE \`\`\`)!!:
   '
   {
     "tags": ["action", "superhero", "modern"],
     "title": "Rick and Morty",
-    "mediaType: "TV Show",
+    "mediaType": "TV Show",
     "objects": ["tree", "river", "chair", "sports-car", "monitor", "people"],
     "sensitiveTags": ["18+", "blood", "political", "gore", "horror", "sex", "violence", "weapons", "alcohol", "drugs", "tobacco", "gambling", "profanity", "hate-speech", "death"],
+    "saudiAgeRating": "PG15",
     "similarMedia": ["Inside Job", "Solar Opposites", "Bojack Horseman", "Gravity Falls"],
     "pureImageDescription": "Rick and Morty: Old man in Lab-suit, Pre-teen in yellow shirt, blue pants, and white shoes. Standing in front of a green portal.",
     "pureImageDescriptionArabic": "ريك ومورتي: رجل عجوز يرتدي بدلة مختبر، ومراهق في قميص أصفر وسروال أزرق وحذاء أبيض. يقف أمام بوابة خضراء.",
@@ -75,7 +91,7 @@ export default async function handler(req, res) {
     "descriptionFrench": "Rick, un scientifique excentrique et alcoolique, entraîne son petit-fils adolescent, Morty, dans de folles aventures à travers des dimensions alternatives. Ils rencontrent des créatures bizarres, des politiques cosmiques et des questions profondes sur l'existence. Pendant ce temps, Morty essaie de jongler entre tout cela et sa vie normale.",
     "marketingMessageShort": "Sci-fi geek? Comedy lover? Then you'll love Rick and Morty! You can watch the Emmy award-winning half-hour animated hit comedy series by Adult Swim today on OSN TV, and get ready for a wild ride with Rick and Morty!",
     "marketingMessageShortArabic": "مهووس بالخيال العلمي؟ محب للكوميديا؟ إذن ستحب ريك ومورتي! يمكنكم مشاهدة المسلسل الكوميدي الكرتوني الكرتوني الكوميدي الحائز على جائزة إيمي والحائز على نصف ساعة من Adult Swim الحائز على جائزة إيمي على OSN TV، واستعدوا لرحلة جامحة مع ريك ومورتي!",
-    "marketingMessageShortFrench": "Fan de science-fiction ? Amateur de comédie ? Alors vous allez adorer Rick et Morty ! Vous pouvez regarder la série comique animée d'une demi-heure d'Adult Swim, récompensée par un Emmy Award, dès aujourd'hui sur OSN TV, et vous préparer à un voyage endiablé avec Rick et Morty !"
+    "marketingMessageShortFrench": "Fan de science-fiction ? Amateur de comédie ? Alors vous allez adorer Rick et Morty ! Vous pouvez regarder la série comique animée d'une demi-heure d'Adult Swim, récompensée par un Emmy Award, dès aujourd'hui sur OSN TV, et vous préparer à un voyage endiablé avec Rick et Morty !",
     "marketingMessageLong": "Are you a fan of sci-fi and comedy? Then you'll love Rick and Morty! You can watch the Emmy award-winning half-hour animated hit comedy series by Adult Swim today on OSN TV that follows a sociopathic genius scientist who drags his inherently timid grandson on insanely dangerous adventures across the universe. Get ready for a wild ride with Rick and Morty!",
     "marketingMessageLongArabic": "هل أنت من محبي الخيال العلمي والكوميديا؟ إذن ستحب ريك ومورتي! يمكنك اليوم مشاهدة المسلسل الكوميدي الكرتوني الكرتوني الشهير الحائز على جائزة إيمي والحائز على نصف ساعة من Adult Swim على OSN TV، والذي يتتبع عالم عبقري معتل اجتماعياً يجر حفيده الخجول بطبيعته في مغامرات خطيرة للغاية عبر الكون. استعد لرحلة جامحة مع ريك ومورتي!",
     "marketingMessageLongFrench": "Vous êtes fan de science-fiction et de comédie ? Alors vous allez adorer Rick et Morty ! Vous pouvez regarder dès aujourd'hui sur OSN TV la série comique animée d'une demi-heure d'Adult Swim, récompensée par un Emmy Award, qui suit un scientifique de génie sociopathe qui entraîne son petit-fils foncièrement timide dans des aventures follement dangereuses à travers l'univers. Préparez-vous à vivre une aventure folle avec Rick et Morty !",
@@ -87,7 +103,6 @@ export default async function handler(req, res) {
   // `;
   const raw = JSON.stringify({
     model: "gpt-4o",
-    // model: "gpt-4o",
     messages: [
       {
         role: "user",
