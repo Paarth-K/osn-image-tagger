@@ -5,8 +5,17 @@ import Image from "next/image";
 import { useDebouncedCallback } from "use-debounce";
 export default function HomePage() {
   const [imageURL, setImageURL] = useState(
-    "https://res.cloudinary.com/dflzkpttf/image/upload/v1717569838/ge2n3kgmjuudslw72olj"
+    "https://res.cloudinary.com/dflzkpttf/image/upload/v1717572601/gmchmr9x1wkfljlr7rzi.jpg"
   );
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      // console.log(e);
+      if (e.target.className == styles.tag) {
+        // console.log(e.target.innerText);
+        navigator.clipboard.writeText(e.target.innerText);
+      }
+    });
+  }, []);
   const [data, setData] = useState(null);
   const [dataStore, setDataStore] = useState("");
   const [buttonText, setButtonText] = useState("Tag");
