@@ -4,9 +4,7 @@ import CloudinaryUploadWidget from "@/components/ImageUploader/CloudinaryUploadW
 import Image from "next/image";
 import { useDebouncedCallback } from "use-debounce";
 export default function HomePage() {
-  const [imageURL, setImageURL] = useState(
-    "https://res.cloudinary.com/dflzkpttf/image/upload/v1717572601/gmchmr9x1wkfljlr7rzi.jpg"
-  );
+  const [imageURL, setImageURL] = useState("");
   useEffect(() => {
     document.addEventListener("click", (e) => {
       // console.log(e);
