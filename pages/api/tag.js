@@ -53,6 +53,9 @@ export default async function handler(req, res) {
   Followed by similar media titles to the one identified based on the mood, synopsis and genre, like this:
   ["Inside Job", "Solar Opposites", "Bojack Horseman", "Gravity Falls"]
 
+  Followed by a modesty / cultural rating for the media, like this:
+  ["head covered", "hair visible", "arms covered", "legs covered", "modest clothing", "non compliant clothing"]
+
   Followed by the title of the media. DO NOT MAKE UP ANY INFORMATION OR ANY INFORMATION ABOUT THE MOVIE/SHOW. IF YOU CAN NOT IDENTIFY SIMPLE STATE "Can Not Determine". An example:
   "Rick and Morty"
 
@@ -73,9 +76,9 @@ export default async function handler(req, res) {
 
   There will be translations of the descriptions in Arabic and French. Please provide the translations in the same format as the English descriptions.
   
-  RETURN IT IN A VALID JSON STRINGIFIED OBJECT FORM LIKE THIS (DO NOT USE \`\`\`)!!:
-  '
-  {
+  RETURN IT IN A VALID JSON STRINGIFIED OBJECT FORM LIKE THIS (DO NOT USE \`\`\` AND INSTEAD WRAP IT IN SINGLE QUOTES \' AND ENSURE YOU RETURN EVERY SINGLE KEY IN THE OBJECT)!!:
+  
+  '{
     "tags": ["action", "superhero", "modern"],
     "title": "Rick and Morty",
     "mediaType": "TV Show",
@@ -83,6 +86,7 @@ export default async function handler(req, res) {
     "sensitiveTags": ["18+", "blood", "political", "gore", "horror", "sex", "violence", "weapons", "alcohol", "drugs", "tobacco", "gambling", "profanity", "hate-speech", "death"],
     "saudiAgeRating": "PG15",
     "similarMedia": ["Inside Job", "Solar Opposites", "Bojack Horseman", "Gravity Falls"],
+    "modestyRating": ["hair visible", "arms covered", "legs covered", "modest clothing"],
     "pureImageDescription": "Rick and Morty: Old man in Lab-suit, Pre-teen in yellow shirt, blue pants, and white shoes. Standing in front of a green portal.",
     "pureImageDescriptionArabic": "ريك ومورتي: رجل عجوز يرتدي بدلة مختبر، ومراهق في قميص أصفر وسروال أزرق وحذاء أبيض. يقف أمام بوابة خضراء.",
     "pureImageDescriptionFrench": "Rick et Morty : Vieil homme en combinaison de laboratoire, pré-adolescent en chemise jaune, pantalon bleu et chaussures blanches. Debout devant un portail vert.",
@@ -95,8 +99,7 @@ export default async function handler(req, res) {
     "marketingMessageLong": "Are you a fan of sci-fi and comedy? Then you'll love Rick and Morty! You can watch the Emmy award-winning half-hour animated hit comedy series by Adult Swim today on OSN TV that follows a sociopathic genius scientist who drags his inherently timid grandson on insanely dangerous adventures across the universe. Get ready for a wild ride with Rick and Morty!",
     "marketingMessageLongArabic": "هل أنت من محبي الخيال العلمي والكوميديا؟ إذن ستحب ريك ومورتي! يمكنك اليوم مشاهدة المسلسل الكوميدي الكرتوني الكرتوني الشهير الحائز على جائزة إيمي والحائز على نصف ساعة من Adult Swim على OSN TV، والذي يتتبع عالم عبقري معتل اجتماعياً يجر حفيده الخجول بطبيعته في مغامرات خطيرة للغاية عبر الكون. استعد لرحلة جامحة مع ريك ومورتي!",
     "marketingMessageLongFrench": "Vous êtes fan de science-fiction et de comédie ? Alors vous allez adorer Rick et Morty ! Vous pouvez regarder dès aujourd'hui sur OSN TV la série comique animée d'une demi-heure d'Adult Swim, récompensée par un Emmy Award, qui suit un scientifique de génie sociopathe qui entraîne son petit-fils foncièrement timide dans des aventures follement dangereuses à travers l'univers. Préparez-vous à vivre une aventure folle avec Rick et Morty !",
-  }
-  '
+  }'
   `;
   //   const system_prompt = `
   // Whats in the image?

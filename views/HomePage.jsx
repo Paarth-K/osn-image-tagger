@@ -59,6 +59,7 @@ export default function HomePage() {
         sensitiveTags: ["Failed to identify sensitive items"],
         saudiAgeRating: "Failed to generate age rating",
         similarMedia: ["Failed to generate similar media"],
+        modestyRating: ["Failed to generate modesty rating"],
         pureImageDescription: "Failed to generate image description",
         pureImageDescriptionArabic: "Failed to generate image description",
         pureImageDescriptionFrench: "Failed to generate image description",
@@ -193,6 +194,18 @@ export default function HomePage() {
                 </p>
                 <div className={styles.tags}>
                   <p className={styles.tag}>{data.saudiAgeRating}</p>
+                </div>
+              </div>
+              <div>
+                <p className={styles.subTitle}>Gulf Modesty Rating:</p>
+                <div className={styles.tags}>
+                  {data.modestyRating.map((object) => {
+                    return (
+                      <p key={object} className={styles.tag}>
+                        {object}
+                      </p>
+                    );
+                  })}
                 </div>
               </div>
               <div>

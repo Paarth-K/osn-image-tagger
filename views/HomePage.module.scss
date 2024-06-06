@@ -106,6 +106,7 @@
   box-shadow: 4px 4px black;
   transform: translateX(-2px) translateY(-2px);
 }
+
 .tag:active {
   transition: box-shadow 0.05s, transform 0.05s;
   box-shadow: none;
