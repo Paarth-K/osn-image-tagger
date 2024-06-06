@@ -17,6 +17,7 @@ export default function HomePage() {
   const [data, setData] = useState(null);
   const [dataStore, setDataStore] = useState("");
   const [buttonText, setButtonText] = useState("Tag");
+
   useEffect(() => {
     console.log("Image URL: ", imageURL);
   }, [imageURL]);
@@ -40,10 +41,37 @@ export default function HomePage() {
     console.log(dataRes);
 
     if (res.status == 200) {
-      setData(dataRes);
-      setDataStore(dataRes);
-      console.log(dataRes);
-      setButtonText("Re-tag");
+      if (
+        dataRes.title &&
+        dataRes.tags &&
+        dataRes.mediaType &&
+        dataRes.objects &&
+        dataRes.sensitiveTags &&
+        dataRes.saudiAgeRating &&
+        dataRes.similarMedia &&
+        dataRes.modestyRating &&
+        dataRes.pureImageDescription &&
+        dataRes.description &&
+        dataRes.marketingMessageShort &&
+        dataRes.marketingMessageLong &&
+        dataRes.descriptionArabic &&
+        dataRes.pureImageDescriptionArabic &&
+        dataRes.marketingMessageShortArabic &&
+        dataRes.marketingMessageLongArabic &&
+        dataRes.descriptionFrench &&
+        dataRes.pureImageDescriptionFrench &&
+        dataRes.marketingMessageShortFrench &&
+        dataRes.marketingMessageLongFrench
+      ) {
+        setData(dataRes);
+        setDataStore(dataRes);
+        console.log(dataRes);
+        setButtonText("Re-tag");
+        return;
+      } else {
+        setButtonText("Failed, retrying...");
+        tagImage();
+      }
       return;
     } else {
       console.error("Failed to tag image");
